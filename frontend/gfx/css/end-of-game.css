@@ -34,11 +34,11 @@ h5 {
 }
 
 #blueTeam .stats .kda {
-  color: var(--blue);
+  color: var(--blue-team);
 }
 
 #blueTeam .stats .secondStat {
-  color: var(--blue);
+  color: var(--blue-team);
   margin-left: auto;
 }
 
@@ -47,12 +47,12 @@ h5 {
 }
 
 #redTeam .stats .secondStat {
-  color: var(--red);
+  color: var(--red-team);
 }
 
 #redTeam .stats .kda {
   margin-left: auto;
-  color: var(--red);
+  color: var(--red-team);
 }
 
 /* Champion */
@@ -108,7 +108,7 @@ h5 {
 }
 
 .dataContainer h5 {
-  color: var(--orange);
+  color: var(--accent-color);
 }
 
 .dataContainer h3.kda {
@@ -119,11 +119,11 @@ h5 {
 
 #blueTeam .dataContainer h3.kda {
   margin-left: auto;
-  color: var(--blue);
+  color: var(--blue-team);
 }
 #redTeam .dataContainer h3.kda {
   margin-right: auto;
-  color: var(--red);
+  color: var(--red-team);
 }
 
 .firstRow {
