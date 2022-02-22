@@ -1,6 +1,6 @@
-import type { PluginContext } from 'league-prod-toolkit/core/modules/Module'
+import type { PluginContext } from 'rcv-prod-toolkit-types'
 import { EndOfGameData } from './handleData';
-import { EndOfGame } from './types/EndOfGame';
+import type { EndOfGame } from './types/EndOfGame';
 const namespace = 'league-end-of-game';
 
 /* import match from './data/EUW1_5390789952.json';

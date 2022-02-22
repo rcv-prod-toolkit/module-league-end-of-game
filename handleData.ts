@@ -1,6 +1,6 @@
 import Match from "./types/Match";
 import MatchTimeline, { MatchTimelineEvents, MatchTimelineGeneralEvent, ParticipantFrame } from "./types/MatchTimeline";
-import { EndOfGame } from "./types/EndOfGame"
+import type { EndOfGame } from "./types/EndOfGame"
 import { MonsterSubType, MonsterType } from "./types/Monster";
 
 export class EndOfGameData {
