@@ -1,4 +1,4 @@
-import type { PluginContext } from 'rcv-prod-toolkit-types'
+import type { PluginContext } from '@rcv-prod-toolkit/types'
 import { EndOfGameData } from './handleData';
 import type { EndOfGame } from './types/EndOfGame';
 const namespace = 'league-end-of-game';
