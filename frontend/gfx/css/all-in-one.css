@@ -36,20 +36,24 @@ body {
   font-size: 30px;
   color: var(--accent-color);
   margin: 0 35px;
-  width: 200px;
+  width: 225px;
 }
 
 .stat {
   font-size: 50px;
   display: flex;
+  width: 300px;
 }
 
 .stat.blue {
+  margin-left: auto;
   color: var(--blue-team);
   text-align: right;
+  justify-content: end;
 }
 
 .stat.red {
+  margin-right: auto;
   color: var(--red-team);
   text-align: left;
 }
@@ -60,7 +64,7 @@ body {
 }
 
 .stat.blue .dragon:not(:last-child) {
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 #drakes .stat.blue {
@@ -68,7 +72,7 @@ body {
 }
 
 .stat.red .dragon:not(:last-child) {
-  margin-right: 30px;
+  margin-right: 20px;
 }
 
 .ban {
@@ -76,11 +80,11 @@ body {
 }
 
 .stat.blue .ban:not(:first-child) {
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 .stat.red .ban:not(:last-child) {
-  margin-right: 25px;
+  margin-right: 20px;
 }
 
 #goldGraph {
