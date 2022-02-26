@@ -7,6 +7,9 @@ function displayDamageGraph (participants) {
   const dmgArray = participantsArray.map(p => p.stats.damage)
   const dmgMax = Math.max.apply(null,dmgArray)
 
+  blueTeam.innerHTML = ''
+  redTeam.innerHTML = ''
+
   for (const participant of participantsArray) {
     const champImg = createChampImg(participant.champion)
     const dmgBar = createDamageBar(participant.stats.damage, dmgMax)
