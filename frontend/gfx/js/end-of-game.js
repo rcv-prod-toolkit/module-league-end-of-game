@@ -39,6 +39,9 @@ const redTeamData = document.querySelector('#redTeam .data')
 const redTeamDmg = document.querySelector('#redTeam .dmg')
 
 function displayChamps (participants) {
+  blueTeamCampions.innerHTML = ''
+  redTeamCampions.innerHTML = ''
+
   for (const participant of Object.values(participants)) {
     const img = document.createElement('img')
     img.src = champUrl(participant.champion)
@@ -51,6 +54,9 @@ function displayChamps (participants) {
 }
 
 function displaySpells (participants) {
+  blueTeamSpells.innerHTML = ''
+  redTeamSpells.innerHTML = ''
+
   for (const participant of Object.values(participants)) {
     const firstSpell = document.createElement('img')
     firstSpell.src = spellUrl(participant.summonerSpell1)
@@ -69,6 +75,9 @@ function displaySpells (participants) {
 }
 
 function renderItems (participants, teams) {
+  blueTeamData.innerHTML = ''
+  redTeamData.innerHTML = ''
+
   for (const participant of Object.values(participants)) {
     const data = document.createElement('div')
     data.classList.add('dataContainer')
@@ -205,6 +214,9 @@ function renderDmg (participants, teams) {
   const participantsArray = Object.values(participants)
   const dmgArray = participantsArray.map(p => p.stats.damage)
   const dmgMax = Math.max.apply(null,dmgArray)
+
+  blueTeamDmg.innerHTML = ''
+  redTeamDmg.innerHTML = ''
 
   for (const participant of participantsArray) {
     const dmg = participant.stats.damage

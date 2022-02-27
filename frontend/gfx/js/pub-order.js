@@ -11,7 +11,7 @@ async function displayPUBOrder (data) {
 
   // Reset
   blueTeam.innerHTML = ''
-  redTeam.innerHtml = ''
+  redTeam.innerHTML = ''
   blueBan.innerHTML = ''
   redBan.innerHTML = ''
 
@@ -55,12 +55,9 @@ LPTE.onready(async () => {
     }
   })
   displayPUBOrder(leagueState.state.lcu.champselect.order)
-  console.log(leagueState)
 
   LPTE.on('state-league', 'champselect-update', e => {
     console.log(e)
     displayPUBOrder(e.order)
   })
 })
-
-displayPUBOrder()

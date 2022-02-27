@@ -53,16 +53,20 @@ function displayDrakes (teams) {
 
   for (i = 0; i < blueDrakes.length; i++) {
     const drake = blueDrakes[blueDrakes.length - 1 - i].split('_')[0].toLowerCase()
-    const drakeImg = drakesDiv.querySelector('.stat.blue').children[i]
-
+    const drakeImg = document.createElement('img')
+    drakeImg.classList.add('dragon')
     drakeImg.src = `${staticURL}/img/drakes/${drake}.png`
+
+    drakesDiv.querySelector('.stat.blue').appendChild(drakeImg)
   }
 
   for (i = 0; i < redDrakes.length; i++) {
     const drake = redDrakes[i].split('_')[0].toLowerCase()
-    const drakeImg = drakesDiv.querySelector('.stat.red').children[i]
-
+    const drakeImg = document.createElement('img')
+    drakeImg.classList.add('dragon')
     drakeImg.src = `${staticURL}/img/drakes/${drake}.png`
+
+    drakesDiv.querySelector('.stat.red').appendChild(drakeImg)
   }
 }
 
@@ -72,15 +76,19 @@ function displayBans (teams) {
 
   for (i = 0; i < blueBans.length; i++) {
     const ban = blueBans[i]
-    const banImg = bansDiv.querySelector('.stat.blue').children[i]
-
+    const banImg = document.createElement('img')
+    banImg.classList.add('ban')
     banImg.src = champUrl(ban)
+
+    bansDiv.querySelector('.stat.blue').appendChild(banImg)
   }
 
   for (i = 0; i < redBans.length; i++) {
     const ban = redBans[i]
-    const banImg = bansDiv.querySelector('.stat.red').children[i]
-
+    const banImg = document.createElement('img')
+    banImg.classList.add('ban')
     banImg.src = champUrl(ban)
+
+    bansDiv.querySelector('.stat.red').appendChild(banImg)
   }
 }
