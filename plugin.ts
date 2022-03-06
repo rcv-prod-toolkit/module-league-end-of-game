@@ -57,18 +57,6 @@ module.exports = async (ctx: PluginContext) => {
     });
   });
 
-  // Emit event that we're ready to operate
-  ctx.LPTE.emit({
-    meta: {
-      type: 'plugin-status-change',
-      namespace: 'lpt',
-      version: 1
-    },
-    status: 'RUNNING'
-  });
-
-  await ctx.LPTE.await('lpt', 'ready', 150000);
-
   ctx.LPTE.on('state-league', 'match-game-loaded', e => {
     const matchData = e.state.web.match
     const timelineData = e.state.web.timeline
@@ -112,4 +100,14 @@ module.exports = async (ctx: PluginContext) => {
       state
     })
   }) */
+
+  // Emit event that we're ready to operate
+  ctx.LPTE.emit({
+    meta: {
+      type: 'plugin-status-change',
+      namespace: 'lpt',
+      version: 1
+    },
+    status: 'RUNNING'
+  });
 };
