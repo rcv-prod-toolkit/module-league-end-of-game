@@ -1,7 +1,7 @@
 const namespace = 'league-end-of-game';
 
 let previousState = 'ITEMS'
-let staticURL = '/serve/static-league'
+let staticURL = '/serve/module-league-static'
 let champions = []
 
 const itemUrl = id => {
@@ -273,7 +273,7 @@ function calcK (amount) {
 LPTE.onready(async () => {
   const constantsRes = await LPTE.request({
     meta: {
-      namespace: 'static-league',
+      namespace: 'module-league-static',
       type: 'request-constants',
       version: 1
     }

@@ -57,7 +57,7 @@ module.exports = async (ctx: PluginContext) => {
     });
   });
 
-  ctx.LPTE.on('state-league', 'match-game-loaded', e => {
+  ctx.LPTE.on('module-league-state', 'match-game-loaded', e => {
     const matchData = e.state.web.match
     const timelineData = e.state.web.timeline
 

@@ -1,5 +1,5 @@
 const namespace = 'league-end-of-game';
-let staticURL = '/serve/static-league'
+let staticURL = '/serve/module-league-static'
 let champions = []
 
 const champUrl = championId => {
@@ -39,7 +39,7 @@ function displayData (emdOfGameData) {
 LPTE.onready(async () => {
   const constantsRes = await LPTE.request({
     meta: {
-      namespace: 'static-league',
+      namespace: 'module-league-static',
       type: 'request-constants',
       version: 1
     }

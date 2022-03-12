@@ -49,14 +49,14 @@ async function displayPUBOrder (data) {
 LPTE.onready(async () => {
   const leagueState = await LPTE.request({
     meta: {
-      namespace: 'state-league',
+      namespace: 'module-league-state',
       type: 'request',
       version: 1
     }
   })
   displayPUBOrder(leagueState.state.lcu.champselect.order)
 
-  LPTE.on('state-league', 'champselect-update', e => {
+  LPTE.on('module-league-state', 'champselect-update', e => {
     console.log(e)
     displayPUBOrder(e.order)
   })
