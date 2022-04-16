@@ -289,7 +289,7 @@ LPTE.onready(async () => {
     }
   })
   start(emdOfGameData)
-  
+
   LPTE.on(namespace, 'update', start)
 
   LPTE.on(namespace, 'end-of-game', (e) => {

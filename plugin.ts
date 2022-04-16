@@ -1,12 +1,13 @@
 import type { PluginContext } from '@rcv-prod-toolkit/types'
 import { EndOfGameData } from './handleData';
 import type { EndOfGame } from './types/EndOfGame';
-const namespace = 'league-end-of-game';
 
 /* import match from './data/EUW1_5390789952.json';
 import timeline from './data/timeline.json'; */
 
 module.exports = async (ctx: PluginContext) => {
+  const namespace = ctx.plugin.module.getName();
+
   let state : {
     status: "NO_GAME" | "GAME_LOADED"
     displayState: "ITEMS" | "DAMAGE"
@@ -35,9 +36,9 @@ module.exports = async (ctx: PluginContext) => {
       version: 1
     },
     pages: [{
-      name: 'OP: league-end-of-game',
+      name: 'LoL: End of Game',
       frontend: 'frontend',
-      id : 'op-league-end-of-game'
+      id : `op-${namespace}`
     }]
   });
 
