@@ -8,9 +8,7 @@ const updateUi = (state) => {
   $('#all-in-one-embed').val(`${location.href}/gfx/all-in-one.html${window.apiKey !== null ? '?apikey=' + window.apiKey : ''}`);
 }
 
-const updateState = async () => {
-  updateUi();
-}
+updateUi();
 
 const showItems = () => {
   window.LPTE.emit({
@@ -33,6 +31,3 @@ const showDmg = () => {
     state: 'DAMAGE'
   })
 }
-
-updateState();
-setInterval(updateState, 1000);
