@@ -12,7 +12,7 @@ const updateState = async () => {
   updateUi();
 }
 
-export const showItems = () => {
+const showItems = () => {
   window.LPTE.emit({
     meta: {
       namespace,
@@ -23,7 +23,7 @@ export const showItems = () => {
   })
 }
 
-export const showDmg = () => {
+const showDmg = () => {
   window.LPTE.emit({
     meta: {
       namespace,
