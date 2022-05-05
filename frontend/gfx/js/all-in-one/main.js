@@ -1,4 +1,4 @@
-const namespace = 'league-end-of-game';
+const namespace = 'module-league-end-of-game';
 let staticURL = '/serve/module-league-static'
 let champions = []
 

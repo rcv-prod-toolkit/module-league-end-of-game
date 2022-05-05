@@ -1,4 +1,4 @@
-const namespace = 'league-end-of-game';
+const namespace = 'module-league-end-of-game';
 
 const blue = getComputedStyle(document.body).getPropertyValue('--blue-team')
 const red = getComputedStyle(document.body).getPropertyValue('--red-team')
