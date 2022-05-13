@@ -54,7 +54,6 @@ const themeRed = document
   .style.getPropertyValue('--red-team');
 
 function changeColors(e) {
-  console.log(e);
   if (e.teams.blueTeam.color !== '#000000') {
     document
       .querySelector(':root')
@@ -82,7 +81,6 @@ window.LPTE.onready(async () => {
   displayPUBOrder(leagueState.state.lcu.champselect.order);
 
   LPTE.on('module-league-state', 'champselect-update', (e) => {
-    console.log(e);
     displayPUBOrder(e.order);
   });
 
