@@ -1,66 +1,71 @@
 const goldGraphCTX = document.getElementById('goldGraphCTX').getContext('2d');
-const blue = getComputedStyle(document.body).getPropertyValue('--blue-team')
-const red = getComputedStyle(document.body).getPropertyValue('--red-team')
-const white = 'rgba(250,250,250,1)'
-const whiteTransparent = 'rgba(242,234,213,0.1)'
+const white = 'rgba(250,250,250,1)';
+const whiteTransparent = 'rgba(242,234,213,0.1)';
 
-function displayGoldGraph (frames) {
-  const keys = Object.keys(frames)
-  const values = Object.values(frames)
+function displayGoldGraph(frames) {
+  const keys = Object.keys(frames);
+  const values = Object.values(frames);
 
   var chart = new Chart(goldGraphCTX, {
     type: 'NegativeTransparentLine',
     data: {
       labels: keys,
-      datasets: [{
-        yAxisID : 'y-axis-0',
-        strokeColor: white,
-        pointColor: white,
-        pointStrokeColor: white,
-        data: values,
-      }]
+      datasets: [
+        {
+          yAxisID: 'y-axis-0',
+          strokeColor: white,
+          pointColor: white,
+          pointStrokeColor: white,
+          data: values,
+        },
+      ],
     },
     options: {
-        scales: {
-          yAxes: [{
+      scales: {
+        yAxes: [
+          {
             ticks: {
               autoskip: true,
               autoSkipPadding: 50,
               fontSize: 16,
               fontColor: white,
-              callback: function(value, index, values) {
-                return value.toFixed(0).replace(/-/g,'');
-              }
+              callback: function (value, index, values) {
+                return value.toFixed(0).replace(/-/g, '');
+              },
             },
             gridLines: {
-              color: whiteTransparent
+              color: whiteTransparent,
             },
-          }],
-          xAxes: [{
+          },
+        ],
+        xAxes: [
+          {
             ticks: {
               autoskip: true,
               autoSkipPadding: 25,
               fontSize: 16,
               fontColor: white,
-              callback: function(value, index, values) {
-                return milliSecsToMinutesAndSeconds(value)
-              }
+              callback: function (value, index, values) {
+                return milliSecsToMinutesAndSeconds(value);
+              },
             },
             gridLines: {
-              color: whiteTransparent
+              color: whiteTransparent,
             },
-          }], 
-        },
-        legend:
-        {
-            display: false,
-        },
-    }
+          },
+        ],
+      },
+      legend: {
+        display: false,
+      },
+    },
   });
-} 
+}
 
 // Add new type of chart to chart.js
-Chart.defaults.NegativeTransparentLine = Chart.helpers.clone(Chart.defaults.line);
+Chart.defaults.NegativeTransparentLine = Chart.helpers.clone(
+  Chart.defaults.line
+);
 Chart.controllers.NegativeTransparentLine = Chart.controllers.line.extend({
   update: function () {
     // get the min and max values
@@ -77,27 +82,34 @@ Chart.controllers.NegativeTransparentLine = Chart.controllers.line.extend({
     var ctx = this.chart.chart.ctx;
     var gradient = ctx.createLinearGradient(0, top, 0, bottom);
     var ratio = Math.min((zero - top) / (bottom - top), 1);
-    if(ratio < 0){
-        
-        ratio = 0;
-        gradient.addColorStop(1, red);
-    }else if(ratio == 1){
-        gradient.addColorStop(1, blue);
-    }else{
-        gradient.addColorStop(0, blue);
-        gradient.addColorStop(ratio, blue);
-        gradient.addColorStop(ratio, red);
-        gradient.addColorStop(1, red);
+
+    const blue = document
+      .querySelector(':root')
+      .style.getPropertyValue('--blue-team');
+    const red = document
+      .querySelector(':root')
+      .style.getPropertyValue('--red-team');
+
+    if (ratio < 0) {
+      ratio = 0;
+      gradient.addColorStop(1, red);
+    } else if (ratio == 1) {
+      gradient.addColorStop(1, blue);
+    } else {
+      gradient.addColorStop(0, blue);
+      gradient.addColorStop(ratio, blue);
+      gradient.addColorStop(ratio, red);
+      gradient.addColorStop(1, red);
     }
     this.chart.data.datasets[0].backgroundColor = gradient;
 
     return Chart.controllers.line.prototype.update.apply(this, arguments);
-  }
+  },
 });
 
 // Helper to calc milliseconds to minutes and seconds
 function milliSecsToMinutesAndSeconds(milliSecs) {
   var minutes = Math.floor(milliSecs / 60000);
   var seconds = ((milliSecs % 60000) / 1000).toFixed(0);
-  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
