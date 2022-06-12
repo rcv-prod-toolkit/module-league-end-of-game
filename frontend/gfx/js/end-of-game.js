@@ -286,14 +286,14 @@ const themeRed = document
   .style.getPropertyValue('--red-team');
 
 function changeColors(e) {
-  if (e.teams.blueTeam.color !== '#000000') {
+  if (e.teams.blueTeam?.color !== undefined && e.teams.blueTeam?.color !== '#000000') {
     document
       .querySelector(':root')
       .style.setProperty('--blue-team', e.teams.blueTeam.color);
   } else {
     document.querySelector(':root').style.setProperty('--blue-team', themeBlue);
   }
-  if (e.teams.redTeam.color !== '#000000') {
+  if (e.teams.redTeam?.color !== undefined && e.teams.redTeam?.color !== '#000000') {
     document
       .querySelector(':root')
       .style.setProperty('--red-team', e.teams.redTeam.color);

@@ -1,7 +1,7 @@
 const namespace = 'module-league-end-of-game';
 
-let blue = getComputedStyle(document.body).getPropertyValue('--blue-team')
-let red = getComputedStyle(document.body).getPropertyValue('--red-team')
+let blue = getComputedStyle(document.body).getPropertyValue('--blue-team');
+let red = getComputedStyle(document.body).getPropertyValue('--red-team');
 const white = 'rgba(250,250,250,1)';
 const whiteTransparent = 'rgba(250,250,250,0.1)';
 

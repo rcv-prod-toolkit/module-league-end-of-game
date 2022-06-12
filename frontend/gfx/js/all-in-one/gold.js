@@ -83,17 +83,15 @@ Chart.controllers.NegativeTransparentLine = Chart.controllers.line.extend({
     var gradient = ctx.createLinearGradient(0, top, 0, bottom);
     var ratio = Math.min((zero - top) / (bottom - top), 1);
 
-    const blue = document
-      .querySelector(':root')
-      .style.getPropertyValue('--blue-team');
-    const red = document
-      .querySelector(':root')
-      .style.getPropertyValue('--red-team');
+    const blue = getComputedStyle(document.body).getPropertyValue(
+      '--blue-team'
+    );
+    const red = getComputedStyle(document.body).getPropertyValue('--red-team');
 
     if (ratio < 0) {
       ratio = 0;
       gradient.addColorStop(1, red);
-    } else if (ratio == 1) {
+    } else if (ratio === 1) {
       gradient.addColorStop(1, blue);
     } else {
       gradient.addColorStop(0, blue);
