@@ -9,7 +9,7 @@ const eldersDiv = teamStats.querySelector('#elders')
 const baronsDiv = teamStats.querySelector('#barons')
 const bansDiv = teamStats.querySelector('#bans')
 
-function displayTeamStats (teams) {
+function displayTeamStats(teams) {
   // KDA
   const blueTeamKDA = `${teams[100].stats.kills} / ${teams[100].stats.deaths} / ${teams[100].stats.assists}`
   kdaDiv.querySelector('.stat.blue').innerHTML = blueTeamKDA
@@ -29,8 +29,10 @@ function displayTeamStats (teams) {
   towerDiv.querySelector('.stat.red').innerHTML = teams[200].stats.towers
 
   // Inhibitors
-  inhibitorsDiv.querySelector('.stat.blue').innerHTML = teams[100].stats.inhibitors
-  inhibitorsDiv.querySelector('.stat.red').innerHTML = teams[200].stats.inhibitors
+  inhibitorsDiv.querySelector('.stat.blue').innerHTML =
+    teams[100].stats.inhibitors
+  inhibitorsDiv.querySelector('.stat.red').innerHTML =
+    teams[200].stats.inhibitors
 
   // Drakes
   displayDrakes(teams)
@@ -47,12 +49,14 @@ function displayTeamStats (teams) {
   displayBans(teams)
 }
 
-function displayDrakes (teams) {
+function displayDrakes(teams) {
   const blueDrakes = teams[100].dragons
   const redDrakes = teams[200].dragons
 
   for (i = 0; i < blueDrakes.length; i++) {
-    const drake = blueDrakes[blueDrakes.length - 1 - i].split('_')[0].toLowerCase()
+    const drake = blueDrakes[blueDrakes.length - 1 - i]
+      .split('_')[0]
+      .toLowerCase()
     const drakeImg = document.createElement('img')
     drakeImg.classList.add('dragon')
     drakeImg.src = `${staticURL}/img/drakes/${drake}.png`
@@ -70,7 +74,7 @@ function displayDrakes (teams) {
   }
 }
 
-function displayBans (teams) {
+function displayBans(teams) {
   const blueBans = teams[100].bans
   const redBans = teams[200].bans
 

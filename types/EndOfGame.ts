@@ -1,4 +1,4 @@
-import { MonsterSubType } from "./Monster";
+import { MonsterSubType } from './Monster'
 
 export namespace EndOfGame {
   export interface Team {

@@ -1,14 +1,34 @@
-const namespace = 'module-league-end-of-game';
+const namespace = 'module-league-end-of-game'
 
 const updateUi = (state) => {
-  $('#gold-embed').val(`${location.href}/gfx/gold.html${window.apiKey !== null ? '?apikey=' + window.apiKey : ''}`);
-  $('#damage-embed').val(`${location.href}/gfx/end-of-game.html?damage${window.apiKey !== null ? '&apikey=' + window.apiKey : ''}`);
-  $('#items-embed').val(`${location.href}/gfx/end-of-game.html${window.apiKey !== null ? '?apikey=' + window.apiKey : ''}`);
-  $('#pickban-embed').val(`${location.href}/gfx/pick-ban-order.html${window.apiKey !== null ? '?apikey=' + window.apiKey : ''}`);
-  $('#all-in-one-embed').val(`${location.href}/gfx/all-in-one.html${window.apiKey !== null ? '?apikey=' + window.apiKey : ''}`);
+  $('#gold-embed').val(
+    `${location.href}/gfx/gold.html${
+      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
+    }`
+  )
+  $('#damage-embed').val(
+    `${location.href}/gfx/end-of-game.html?damage${
+      window.apiKey !== null ? '&apikey=' + window.apiKey : ''
+    }`
+  )
+  $('#items-embed').val(
+    `${location.href}/gfx/end-of-game.html${
+      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
+    }`
+  )
+  $('#pickban-embed').val(
+    `${location.href}/gfx/pick-ban-order.html${
+      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
+    }`
+  )
+  $('#all-in-one-embed').val(
+    `${location.href}/gfx/all-in-one.html${
+      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
+    }`
+  )
 }
 
-updateUi();
+updateUi()
 
 const showItems = () => {
   window.LPTE.emit({

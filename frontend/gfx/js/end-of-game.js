@@ -1,304 +1,310 @@
-const namespace = 'module-league-end-of-game';
+const namespace = 'module-league-end-of-game'
 
-let previousState = 'ITEMS';
-let staticURL = '/serve/module-league-static';
-let champions = [];
+let previousState = 'ITEMS'
+let staticURL = '/serve/module-league-static'
+let champions = []
 
 const itemUrl = (id) => {
-  return `${staticURL}/img/item/${id}.png`;
-};
+  return `${staticURL}/img/item/${id}.png`
+}
 const champUrl = (championId) => {
   const champ = champions.find((c) => {
-    return c.key === championId.toString();
-  });
+    return c.key === championId.toString()
+  })
 
-  if (champ === undefined) return '';
+  if (champ === undefined) return ''
 
-  return `${staticURL}/img/champion/tiles/${champ.id}_0.jpg`;
-};
+  return `${staticURL}/img/champion/tiles/${champ.id}_0.jpg`
+}
 const spellUrl = (id) => {
-  return `${staticURL}/img/summoner-spell/${id}.png`;
-};
+  return `${staticURL}/img/summoner-spell/${id}.png`
+}
 
 // Team Blue
-const blueTeamKDA = document.querySelector('#blueTeam .stats .kda');
+const blueTeamKDA = document.querySelector('#blueTeam .stats .kda')
 const blueTeamSecondStatDmg = document.querySelector(
   '#blueTeam .stats .secondStatDmg'
-);
+)
 const blueTeamSecondStatGold = document.querySelector(
   '#blueTeam .stats .secondStatGold'
-);
-const blueTeamCampions = document.querySelector('#blueTeam .campions');
-const blueTeamSpells = document.querySelector('#blueTeam .spells');
-const blueTeamData = document.querySelector('#blueTeam .data');
-const blueTeamDmg = document.querySelector('#blueTeam .dmg');
+)
+const blueTeamCampions = document.querySelector('#blueTeam .campions')
+const blueTeamSpells = document.querySelector('#blueTeam .spells')
+const blueTeamData = document.querySelector('#blueTeam .data')
+const blueTeamDmg = document.querySelector('#blueTeam .dmg')
 
 // Team Red
-const redTeamKDA = document.querySelector('#redTeam .stats .kda');
+const redTeamKDA = document.querySelector('#redTeam .stats .kda')
 const redTeamSecondStatDmg = document.querySelector(
   '#redTeam .stats .secondStatDmg'
-);
+)
 const redTeamSecondStatGold = document.querySelector(
   '#redTeam .stats .secondStatGold'
-);
-const redTeamCampions = document.querySelector('#redTeam .campions');
-const redTeamSpells = document.querySelector('#redTeam .spells');
-const redTeamData = document.querySelector('#redTeam .data');
-const redTeamDmg = document.querySelector('#redTeam .dmg');
+)
+const redTeamCampions = document.querySelector('#redTeam .campions')
+const redTeamSpells = document.querySelector('#redTeam .spells')
+const redTeamData = document.querySelector('#redTeam .data')
+const redTeamDmg = document.querySelector('#redTeam .dmg')
 
 function displayChamps(participants) {
-  blueTeamCampions.innerHTML = '';
-  redTeamCampions.innerHTML = '';
+  blueTeamCampions.innerHTML = ''
+  redTeamCampions.innerHTML = ''
 
   for (const participant of Object.values(participants)) {
-    const img = document.createElement('img');
-    img.src = champUrl(participant.champion);
+    const img = document.createElement('img')
+    img.src = champUrl(participant.champion)
     if (participant.teamId === 100) {
-      blueTeamCampions.appendChild(img);
+      blueTeamCampions.appendChild(img)
     } else {
-      redTeamCampions.appendChild(img);
+      redTeamCampions.appendChild(img)
     }
   }
 }
 
 function displaySpells(participants) {
-  blueTeamSpells.innerHTML = '';
-  redTeamSpells.innerHTML = '';
+  blueTeamSpells.innerHTML = ''
+  redTeamSpells.innerHTML = ''
 
   for (const participant of Object.values(participants)) {
-    const firstSpell = document.createElement('img');
-    firstSpell.src = spellUrl(participant.summonerSpell1);
+    const firstSpell = document.createElement('img')
+    firstSpell.src = spellUrl(participant.summonerSpell1)
 
-    const secondSpell = document.createElement('img');
-    secondSpell.src = spellUrl(participant.summonerSpell2);
+    const secondSpell = document.createElement('img')
+    secondSpell.src = spellUrl(participant.summonerSpell2)
 
     if (participant.teamId === 100) {
-      blueTeamSpells.appendChild(firstSpell);
-      blueTeamSpells.appendChild(secondSpell);
+      blueTeamSpells.appendChild(firstSpell)
+      blueTeamSpells.appendChild(secondSpell)
     } else {
-      redTeamSpells.appendChild(firstSpell);
-      redTeamSpells.appendChild(secondSpell);
+      redTeamSpells.appendChild(firstSpell)
+      redTeamSpells.appendChild(secondSpell)
     }
   }
 }
 
 function renderItems(participants, teams) {
-  blueTeamData.innerHTML = '';
-  redTeamData.innerHTML = '';
+  blueTeamData.innerHTML = ''
+  redTeamData.innerHTML = ''
 
   for (const participant of Object.values(participants)) {
-    const data = document.createElement('div');
-    data.classList.add('dataContainer');
+    const data = document.createElement('div')
+    data.classList.add('dataContainer')
 
     // first row
-    const name = document.createElement('h3');
-    name.classList.add('name');
-    name.innerHTML = participant.name;
+    const name = document.createElement('h3')
+    name.classList.add('name')
+    name.innerHTML = participant.name
 
-    const kills = participant.stats.kills;
-    const deaths = participant.stats.deaths;
-    const assists = participant.stats.assists;
-    const kda = document.createElement('h3');
-    kda.classList.add('kda');
-    kda.innerHTML = `${kills} / ${deaths} / ${assists}`;
+    const kills = participant.stats.kills
+    const deaths = participant.stats.deaths
+    const assists = participant.stats.assists
+    const kda = document.createElement('h3')
+    kda.classList.add('kda')
+    kda.innerHTML = `${kills} / ${deaths} / ${assists}`
 
-    const firstRow = document.createElement('div');
-    firstRow.classList.add('firstRow');
+    const firstRow = document.createElement('div')
+    firstRow.classList.add('firstRow')
 
     // item row
-    const itemRow = document.createElement('div');
-    itemRow.classList.add('itemRow');
+    const itemRow = document.createElement('div')
+    itemRow.classList.add('itemRow')
 
     // other stats
-    const cs = participant.stats.cs;
-    const gold = participant.stats.gold;
+    const cs = participant.stats.cs
+    const gold = participant.stats.gold
 
-    const csDiv = document.createElement('div');
-    csDiv.classList.add('info');
-    const csHeading = document.createElement('h5');
-    csHeading.innerHTML = 'CS';
-    const csText = document.createElement('h4');
-    csText.innerHTML = cs;
-    csDiv.appendChild(csHeading);
-    csDiv.appendChild(csText);
+    const csDiv = document.createElement('div')
+    csDiv.classList.add('info')
+    const csHeading = document.createElement('h5')
+    csHeading.innerHTML = 'CS'
+    const csText = document.createElement('h4')
+    csText.innerHTML = cs
+    csDiv.appendChild(csHeading)
+    csDiv.appendChild(csText)
 
-    const goldDiv = document.createElement('div');
-    goldDiv.classList.add('info');
-    const goldHeading = document.createElement('h5');
-    goldHeading.innerHTML = 'Gold';
-    const goldText = document.createElement('h4');
-    goldText.innerHTML = calcK(gold);
-    goldDiv.appendChild(goldHeading);
-    goldDiv.appendChild(goldText);
+    const goldDiv = document.createElement('div')
+    goldDiv.classList.add('info')
+    const goldHeading = document.createElement('h5')
+    goldHeading.innerHTML = 'Gold'
+    const goldText = document.createElement('h4')
+    goldText.innerHTML = calcK(gold)
+    goldDiv.appendChild(goldHeading)
+    goldDiv.appendChild(goldText)
 
     if (participant.teamId === 100) {
-      firstRow.appendChild(name);
-      firstRow.appendChild(kda);
+      firstRow.appendChild(name)
+      firstRow.appendChild(kda)
 
-      data.appendChild(firstRow);
+      data.appendChild(firstRow)
 
       // item row
       for (const item of participant.items) {
         if (item > 0) {
-          const itemImg = document.createElement('img');
-          itemImg.src = itemUrl(item);
-          itemRow.appendChild(itemImg);
+          const itemImg = document.createElement('img')
+          itemImg.src = itemUrl(item)
+          itemRow.appendChild(itemImg)
         } else {
-          const emptyImg = document.createElement('div');
-          emptyImg.classList.add('emptyImg');
-          itemRow.appendChild(emptyImg);
+          const emptyImg = document.createElement('div')
+          emptyImg.classList.add('emptyImg')
+          itemRow.appendChild(emptyImg)
         }
       }
-      data.appendChild(itemRow);
+      data.appendChild(itemRow)
 
-      data.appendChild(csDiv);
-      data.appendChild(goldDiv);
+      data.appendChild(csDiv)
+      data.appendChild(goldDiv)
 
-      blueTeamData.appendChild(data);
+      blueTeamData.appendChild(data)
     } else {
-      firstRow.appendChild(kda);
-      firstRow.appendChild(name);
+      firstRow.appendChild(kda)
+      firstRow.appendChild(name)
 
-      data.appendChild(firstRow);
+      data.appendChild(firstRow)
 
-      data.appendChild(goldDiv);
-      data.appendChild(csDiv);
+      data.appendChild(goldDiv)
+      data.appendChild(csDiv)
 
       // item row
       for (const item of participant.items.reverse()) {
         if (item > 0) {
-          const itemImg = document.createElement('img');
-          itemImg.src = itemUrl(item);
-          itemRow.appendChild(itemImg);
+          const itemImg = document.createElement('img')
+          itemImg.src = itemUrl(item)
+          itemRow.appendChild(itemImg)
         } else {
-          const emptyImg = document.createElement('div');
-          emptyImg.classList.add('emptyImg');
-          itemRow.appendChild(emptyImg);
+          const emptyImg = document.createElement('div')
+          emptyImg.classList.add('emptyImg')
+          itemRow.appendChild(emptyImg)
         }
       }
-      data.appendChild(itemRow);
+      data.appendChild(itemRow)
 
-      redTeamData.appendChild(data);
+      redTeamData.appendChild(data)
     }
   }
 
-  blueTeamKDA.innerHTML = `${teams[100].stats.kills} / ${teams[100].stats.deaths} / ${teams[100].stats.assists}`;
-  redTeamKDA.innerHTML = `${teams[200].stats.kills} / ${teams[200].stats.deaths} / ${teams[200].stats.assists}`;
+  blueTeamKDA.innerHTML = `${teams[100].stats.kills} / ${teams[100].stats.deaths} / ${teams[100].stats.assists}`
+  redTeamKDA.innerHTML = `${teams[200].stats.kills} / ${teams[200].stats.deaths} / ${teams[200].stats.assists}`
 
-  blueTeamSecondStatGold.innerHTML = calcK(teams[100].stats.gold);
-  redTeamSecondStatGold.innerHTML = calcK(teams[200].stats.gold);
+  blueTeamSecondStatGold.innerHTML = calcK(teams[100].stats.gold)
+  redTeamSecondStatGold.innerHTML = calcK(teams[200].stats.gold)
 
-  showItems();
+  showItems()
 }
 
 function showItems() {
-  blueTeamData.style.display = 'block';
-  blueTeamDmg.style.display = 'none';
+  blueTeamData.style.display = 'block'
+  blueTeamDmg.style.display = 'none'
 
-  redTeamData.style.display = 'block';
-  redTeamDmg.style.display = 'none';
+  redTeamData.style.display = 'block'
+  redTeamDmg.style.display = 'none'
 
-  blueTeamSecondStatGold.style.display = 'block';
-  blueTeamSecondStatDmg.style.display = 'none';
+  blueTeamSecondStatGold.style.display = 'block'
+  blueTeamSecondStatDmg.style.display = 'none'
 
-  redTeamSecondStatGold.style.display = 'block';
-  redTeamSecondStatDmg.style.display = 'none';
+  redTeamSecondStatGold.style.display = 'block'
+  redTeamSecondStatDmg.style.display = 'none'
 }
 function showDmg() {
-  blueTeamData.style.display = 'none';
-  blueTeamDmg.style.display = 'block';
+  blueTeamData.style.display = 'none'
+  blueTeamDmg.style.display = 'block'
 
-  redTeamData.style.display = 'none';
-  redTeamDmg.style.display = 'block';
+  redTeamData.style.display = 'none'
+  redTeamDmg.style.display = 'block'
 
-  blueTeamSecondStatGold.style.display = 'none';
-  blueTeamSecondStatDmg.style.display = 'block';
+  blueTeamSecondStatGold.style.display = 'none'
+  blueTeamSecondStatDmg.style.display = 'block'
 
-  redTeamSecondStatGold.style.display = 'none';
-  redTeamSecondStatDmg.style.display = 'block';
+  redTeamSecondStatGold.style.display = 'none'
+  redTeamSecondStatDmg.style.display = 'block'
 }
 
 function renderDmg(participants, teams) {
-  const participantsArray = Object.values(participants);
-  const dmgArray = participantsArray.map((p) => p.stats.damage);
-  const dmgMax = Math.max.apply(null, dmgArray);
+  const participantsArray = Object.values(participants)
+  const dmgArray = participantsArray.map((p) => p.stats.damage)
+  const dmgMax = Math.max.apply(null, dmgArray)
 
-  blueTeamDmg.innerHTML = '';
-  redTeamDmg.innerHTML = '';
+  blueTeamDmg.innerHTML = ''
+  redTeamDmg.innerHTML = ''
 
   for (const participant of participantsArray) {
-    const dmg = participant.stats.damage;
-    const ratio = Math.round((dmg / dmgMax) * 100);
+    const dmg = participant.stats.damage
+    const ratio = Math.round((dmg / dmgMax) * 100)
 
-    const dmgContainer = document.createElement('div');
-    dmgContainer.classList.add('dmgContainer');
+    const dmgContainer = document.createElement('div')
+    dmgContainer.classList.add('dmgContainer')
 
-    const dmgBar = document.createElement('div');
-    dmgBar.classList.add('dmgBar');
-    dmgBar.style.setProperty('--bar-width', `calc(${ratio}% - 5rem)`);
+    const dmgBar = document.createElement('div')
+    dmgBar.classList.add('dmgBar')
+    dmgBar.style.setProperty('--bar-width', `calc(${ratio}% - 5rem)`)
 
-    const dmgText = document.createElement('h3');
-    dmgText.innerHTML = calcK(dmg);
+    const dmgText = document.createElement('h3')
+    dmgText.innerHTML = calcK(dmg)
 
     if (participant.teamId == 100) {
-      dmgContainer.appendChild(dmgBar);
-      dmgContainer.appendChild(dmgText);
+      dmgContainer.appendChild(dmgBar)
+      dmgContainer.appendChild(dmgText)
 
-      blueTeamDmg.appendChild(dmgContainer);
+      blueTeamDmg.appendChild(dmgContainer)
     } else {
-      dmgContainer.appendChild(dmgText);
-      dmgContainer.appendChild(dmgBar);
+      dmgContainer.appendChild(dmgText)
+      dmgContainer.appendChild(dmgBar)
 
-      redTeamDmg.appendChild(dmgContainer);
+      redTeamDmg.appendChild(dmgContainer)
     }
   }
 
-  blueTeamSecondStatDmg.innerHTML = calcK(teams[100].stats.damage);
-  redTeamSecondStatDmg.innerHTML = calcK(teams[100].stats.damage);
+  blueTeamSecondStatDmg.innerHTML = calcK(teams[100].stats.damage)
+  redTeamSecondStatDmg.innerHTML = calcK(teams[100].stats.damage)
 }
 
 async function start(emdOfGameData) {
-  const state = emdOfGameData.state;
+  const state = emdOfGameData.state
 
-  const participants = state.participants;
-  const teams = state.teams;
+  const participants = state.participants
+  const teams = state.teams
 
-  displayChamps(participants);
-  displaySpells(participants);
-  renderItems(participants, teams);
-  renderDmg(participants, teams);
+  displayChamps(participants)
+  displaySpells(participants)
+  renderItems(participants, teams)
+  renderDmg(participants, teams)
 }
 
 function calcK(amount) {
   switch (true) {
     case amount > 1000:
-      return `${(amount / 1000).toFixed(1)} K`;
+      return `${(amount / 1000).toFixed(1)} K`
     default:
-      return amount;
+      return amount
   }
 }
 
 const themeBlue = document
   .querySelector(':root')
-  .style.getPropertyValue('--blue-team');
+  .style.getPropertyValue('--blue-team')
 const themeRed = document
   .querySelector(':root')
-  .style.getPropertyValue('--red-team');
+  .style.getPropertyValue('--red-team')
 
 function changeColors(e) {
-  if (e.teams.blueTeam?.color !== undefined && e.teams.blueTeam?.color !== '#000000') {
+  if (
+    e.teams.blueTeam?.color !== undefined &&
+    e.teams.blueTeam?.color !== '#000000'
+  ) {
     document
       .querySelector(':root')
-      .style.setProperty('--blue-team', e.teams.blueTeam.color);
+      .style.setProperty('--blue-team', e.teams.blueTeam.color)
   } else {
-    document.querySelector(':root').style.setProperty('--blue-team', themeBlue);
+    document.querySelector(':root').style.setProperty('--blue-team', themeBlue)
   }
-  if (e.teams.redTeam?.color !== undefined && e.teams.redTeam?.color !== '#000000') {
+  if (
+    e.teams.redTeam?.color !== undefined &&
+    e.teams.redTeam?.color !== '#000000'
+  ) {
     document
       .querySelector(':root')
-      .style.setProperty('--red-team', e.teams.redTeam.color);
+      .style.setProperty('--red-team', e.teams.redTeam.color)
   } else {
-    document.querySelector(':root').style.setProperty('--red-team', themeRed);
+    document.querySelector(':root').style.setProperty('--red-team', themeRed)
   }
 }
 
@@ -307,45 +313,45 @@ LPTE.onready(async () => {
     meta: {
       namespace: 'module-league-static',
       type: 'request-constants',
-      version: 1,
-    },
-  });
-  const constants = constantsRes.constants;
-  champions = constants.champions;
+      version: 1
+    }
+  })
+  const constants = constantsRes.constants
+  champions = constants.champions
 
   const emdOfGameData = await LPTE.request({
     meta: {
       namespace,
       type: 'request',
-      version: 1,
-    },
-  });
-  start(emdOfGameData);
+      version: 1
+    }
+  })
+  start(emdOfGameData)
 
-  LPTE.on(namespace, 'update', start);
+  LPTE.on(namespace, 'update', start)
 
   LPTE.on(namespace, 'end-of-game', (e) => {
-    if (previousState === e.state) return;
-    previousState = e.state;
+    if (previousState === e.state) return
+    previousState = e.state
 
     if (e.state === 'ITEMS') {
-      showItems();
+      showItems()
     } else if (e.state === 'DAMAGE') {
-      showDmg();
+      showDmg()
     }
-  });
+  })
 
-  window.LPTE.on('module-teams', 'update', changeColors);
+  window.LPTE.on('module-teams', 'update', changeColors)
 
   const teams = await window.LPTE.request({
     meta: {
       namespace: 'module-teams',
       type: 'request-current',
-      version: 1,
-    },
-  });
+      version: 1
+    }
+  })
 
   if (teams !== undefined) {
-    changeColors(teams);
+    changeColors(teams)
   }
-});
+})

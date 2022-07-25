@@ -1,17 +1,20 @@
-import Match from "./types/Match";
-import MatchTimeline, { MatchTimelineEvents, MatchTimelineGeneralEvent, ParticipantFrame } from "./types/MatchTimeline";
-import type { EndOfGame } from "./types/EndOfGame"
-import { MonsterSubType, MonsterType } from "./types/Monster";
+import Match from './types/Match'
+import MatchTimeline, {
+  MatchTimelineEvents,
+  MatchTimelineGeneralEvent,
+  ParticipantFrame
+} from './types/MatchTimeline'
+import type { EndOfGame } from './types/EndOfGame'
+import { MonsterSubType, MonsterType } from './types/Monster'
 
 export class EndOfGameData {
-
-  public teams : {
+  public teams: {
     [id: number]: EndOfGame.Team
   } = {}
-  public participants : {
+  public participants: {
     [id: number]: EndOfGame.Participant
   } = {}
-  public goldFrames : {
+  public goldFrames: {
     [timestamp: number]: number
   } = {}
 
@@ -21,32 +24,38 @@ export class EndOfGameData {
 
   private readyHandler?: () => void
 
-  constructor (
-    private matchData: Match,
-    private timelineData: MatchTimeline
-  ) {
+  constructor(private matchData: Match, private timelineData: MatchTimeline) {
     this.handleParticipants()
     this.handleTeams()
     this.handleTimeLine()
   }
 
-  public onReady (handler: () => void) : void {
-    if (this._goldFramesAvailable && this._participantsAvailable && this._teamsAvailable) {
+  public onReady(handler: () => void): void {
+    if (
+      this._goldFramesAvailable &&
+      this._participantsAvailable &&
+      this._teamsAvailable
+    ) {
       handler()
     } else {
       this.readyHandler = handler
     }
   }
 
-  private _readyCheck () {
+  private _readyCheck() {
     if (!this.readyHandler) return
 
-    if (!this._goldFramesAvailable || !this._participantsAvailable || !this._teamsAvailable) return
+    if (
+      !this._goldFramesAvailable ||
+      !this._participantsAvailable ||
+      !this._teamsAvailable
+    )
+      return
 
     this.readyHandler()
   }
 
-  private handleParticipants () {
+  private handleParticipants() {
     // Since we need the handling of the teams first to know the participants team, we wait until its done
     if (!this._teamsAvailable) {
       return setTimeout(() => {
@@ -95,7 +104,7 @@ export class EndOfGameData {
           participant.item3,
           participant.item4,
           participant.item5,
-          participant.item6,
+          participant.item6
         ]
       }
 
@@ -112,12 +121,12 @@ export class EndOfGameData {
     this._readyCheck()
   }
 
-  private handleTeams () {
+  private handleTeams() {
     const teams = this.matchData.info.teams
 
     for (const team of teams) {
       const teamId = team.teamId
-      let bans : number[] = []
+      let bans: number[] = []
 
       for (const ban of team.bans) {
         bans.push(ban.championId)
@@ -150,7 +159,7 @@ export class EndOfGameData {
     this._readyCheck()
   }
 
-  private handleTimeLine () {
+  private handleTimeLine() {
     // Since we need the handling of all participants first to know the participants team, we wait until its done
     if (!this._participantsAvailable) {
       return setTimeout(() => {
@@ -158,21 +167,23 @@ export class EndOfGameData {
       }, 200)
     }
 
-
     const frames = this.timelineData.info.frames
 
     for (const frame of frames) {
       this._checkForDragonEvent(frame.events)
-      this._calcFrameGold(Object.values(frame.participantFrames), frame.timestamp)
+      this._calcFrameGold(
+        Object.values(frame.participantFrames),
+        frame.timestamp
+      )
     }
 
     this._goldFramesAvailable = true
     this._readyCheck()
   }
 
-  private _checkForDragonEvent (events: MatchTimelineGeneralEvent[]) {
+  private _checkForDragonEvent(events: MatchTimelineGeneralEvent[]) {
     for (const event of events) {
-      if (event.type !== "ELITE_MONSTER_KILL") continue
+      if (event.type !== 'ELITE_MONSTER_KILL') continue
 
       const typedEvent = event as MatchTimelineEvents.ELITE_MONSTER_KILL
 
@@ -181,22 +192,28 @@ export class EndOfGameData {
       if (!typedEvent.monsterSubType) continue
 
       if (typedEvent.monsterSubType === MonsterSubType.ELDER_DRAGON) {
-        this.teams[typedEvent.killerTeamId].stats.elders++ 
+        this.teams[typedEvent.killerTeamId].stats.elders++
       } else {
-        this.teams[typedEvent.killerTeamId].dragons.push(typedEvent.monsterSubType)
+        this.teams[typedEvent.killerTeamId].dragons.push(
+          typedEvent.monsterSubType
+        )
       }
     }
   }
 
-  private _calcFrameGold (participants: ParticipantFrame[], timestamp: number) {
+  private _calcFrameGold(participants: ParticipantFrame[], timestamp: number) {
     let blue = 0
     let red = 0
 
     for (const participant of participants) {
-      const teamId = this.teams[100].participants.includes(participant.participantId) ? 100 : 200
+      const teamId = this.teams[100].participants.includes(
+        participant.participantId
+      )
+        ? 100
+        : 200
 
-      if (teamId == 100) blue += participant.totalGold;
-      else if (teamId == 200) red += participant.totalGold;
+      if (teamId == 100) blue += participant.totalGold
+      else if (teamId == 200) red += participant.totalGold
     }
 
     this.goldFrames[timestamp] = blue - red

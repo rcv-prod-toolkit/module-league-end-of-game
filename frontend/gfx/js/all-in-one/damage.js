@@ -2,10 +2,10 @@ const damageGraphDiv = document.querySelector('#damageGraph')
 const blueTeam = damageGraphDiv.querySelector('.team.blue')
 const redTeam = damageGraphDiv.querySelector('.team.red')
 
-function displayDamageGraph (participants) {
+function displayDamageGraph(participants) {
   const participantsArray = Object.values(participants)
-  const dmgArray = participantsArray.map(p => p.stats.damage)
-  const dmgMax = Math.max.apply(null,dmgArray)
+  const dmgArray = participantsArray.map((p) => p.stats.damage)
+  const dmgMax = Math.max.apply(null, dmgArray)
 
   blueTeam.innerHTML = ''
   redTeam.innerHTML = ''
@@ -27,7 +27,7 @@ function displayDamageGraph (participants) {
   }
 }
 
-function createDamageBar (dmg, dmgMax) {
+function createDamageBar(dmg, dmgMax) {
   const ratio = Math.round((dmg / dmgMax) * 100)
 
   const dmgContainer = document.createElement('div')
@@ -35,7 +35,7 @@ function createDamageBar (dmg, dmgMax) {
 
   const dmgBar = document.createElement('div')
   dmgBar.classList.add('dmgBar')
-  dmgBar.style.setProperty("--bar-width", `calc(${ratio}% - 3.5rem)`)
+  dmgBar.style.setProperty('--bar-width', `calc(${ratio}% - 3.5rem)`)
 
   const dmgText = document.createElement('h3')
   dmgText.innerHTML = calcK(dmg)
@@ -46,7 +46,7 @@ function createDamageBar (dmg, dmgMax) {
   return dmgContainer
 }
 
-function createChampImg (champId) {
+function createChampImg(champId) {
   const currentChampUri = champUrl(champId)
 
   const img = document.createElement('img')
