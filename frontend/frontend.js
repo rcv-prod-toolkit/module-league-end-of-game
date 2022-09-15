@@ -1,31 +1,16 @@
-const namespace = 'module-league-end-of-game'
+const updateUi = async () => {
+  const port =  await window.constants.getWebServerPort()
+  const location = `http://localhost:${port}/pages/op-module-league-end-of-game/gfx`
 
-const updateUi = (state) => {
-  $('#gold-embed').val(
-    `${location.href}/gfx/gold.html${
-      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
-    }`
-  )
-  $('#damage-embed').val(
-    `${location.href}/gfx/end-of-game.html?damage${
-      window.apiKey !== null ? '&apikey=' + window.apiKey : ''
-    }`
-  )
-  $('#items-embed').val(
-    `${location.href}/gfx/end-of-game.html${
-      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
-    }`
-  )
-  $('#pickban-embed').val(
-    `${location.href}/gfx/pick-ban-order.html${
-      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
-    }`
-  )
-  $('#all-in-one-embed').val(
-    `${location.href}/gfx/all-in-one.html${
-      window.apiKey !== null ? '?apikey=' + window.apiKey : ''
-    }`
-  )
+  const apiKey =  await window.constants.getApiKey()
+
+  document.querySelector('#gold-embed').value = `${location}/gold.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
+
+  document.querySelector('#items-embed').value = `${location}/end-of-game.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
+
+  document.querySelector('#pickban-embed').value = `${location}/pick-ban-order.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
+
+  document.querySelector('#all-in-one-embed').value = `${location}/all-in-one.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
 }
 
 updateUi()
@@ -33,7 +18,7 @@ updateUi()
 const showItems = () => {
   window.LPTE.emit({
     meta: {
-      namespace,
+      namespace: 'module-league-end-of-game',
       type: 'end-of-game',
       version: 1
     },
@@ -44,7 +29,7 @@ const showItems = () => {
 const showDmg = () => {
   window.LPTE.emit({
     meta: {
-      namespace,
+      namespace: 'module-league-end-of-game',
       type: 'end-of-game',
       version: 1
     },
