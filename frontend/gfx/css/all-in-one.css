@@ -41,15 +41,12 @@ body {
 
 .stat {
   font-size: 50px;
-  display: flex;
   width: 300px;
 }
 
 .stat.blue {
-  margin-left: auto;
   color: var(--blue-team);
   text-align: right;
-  justify-content: end;
 }
 
 .stat.red {
@@ -65,6 +62,11 @@ body {
 
 .stat.blue .dragon:not(:last-child) {
   margin-left: 20px;
+}
+
+#drakes .stat,
+#bans .stat {
+  display: flex;
 }
 
 #drakes .stat.blue {
