@@ -1,16 +1,28 @@
 const updateUi = async () => {
-  const port =  await window.constants.getWebServerPort()
-  const location = `http://localhost:${port}/pages/op-module-league-end-of-game/gfx`
+  const server = await window.constants.getWebServerPort()
+  const location = `http://${server}/pages/op-module-league-end-of-game/gfx`
 
-  const apiKey =  await window.constants.getApiKey()
+  const apiKey = await window.constants.getApiKey()
 
-  document.querySelector('#gold-embed').value = `${location}/gold.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
+  document.querySelector('#gold-embed').value = `${location}/gold.html${
+    apiKey !== null ? '?apikey=' + apiKey : ''
+  }`
 
-  document.querySelector('#items-embed').value = `${location}/end-of-game.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
+  document.querySelector('#items-embed').value = `${location}/end-of-game.html${
+    apiKey !== null ? '?apikey=' + apiKey : ''
+  }`
 
-  document.querySelector('#pickban-embed').value = `${location}/pick-ban-order.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
+  document.querySelector(
+    '#pickban-embed'
+  ).value = `${location}/pick-ban-order.html${
+    apiKey !== null ? '?apikey=' + apiKey : ''
+  }`
 
-  document.querySelector('#all-in-one-embed').value = `${location}/all-in-one.html${apiKey !== null ? '?apikey=' + apiKey: ''}`
+  document.querySelector(
+    '#all-in-one-embed'
+  ).value = `${location}/all-in-one.html${
+    apiKey !== null ? '?apikey=' + apiKey : ''
+  }`
 }
 
 updateUi()
