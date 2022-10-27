@@ -167,6 +167,12 @@ export class EndOfGameData {
       }, 200)
     }
 
+    if (this.timelineData?.info?.frames === undefined) {
+      this._goldFramesAvailable = true
+      this._readyCheck()
+      return
+    }
+
     const frames = this.timelineData.info.frames
 
     for (const frame of frames) {

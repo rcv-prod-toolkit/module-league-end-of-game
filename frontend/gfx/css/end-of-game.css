@@ -184,13 +184,13 @@ h5 {
 }
 
 #blueTeam .dmgBar {
-  background-color: var(--blue);
+  background-color: var(--blue-team);
   transform-origin: left;
   margin-right: 1rem;
 }
 
 #redTeam .dmgBar {
-  background-color: var(--red);
+  background-color: var(--red-team);
   transform-origin: right;
   margin-left: 1rem;
 }
