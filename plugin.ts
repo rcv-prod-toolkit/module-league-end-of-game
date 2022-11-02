@@ -2,9 +2,6 @@ import type { PluginContext } from '@rcv-prod-toolkit/types'
 import { EndOfGameData } from './handleData'
 import type { EndOfGame } from './types/EndOfGame'
 
-/* import match from './data/EUW1_5390789952.json';
-import timeline from './data/timeline.json'; */
-
 module.exports = async (ctx: PluginContext) => {
   const namespace = ctx.plugin.module.getName()
 
@@ -82,27 +79,6 @@ module.exports = async (ctx: PluginContext) => {
       })
     })
   })
-
-  /* const matchData = match as any
-  const timelineData = timeline
-
-  const emdOfGameData = new EndOfGameData(matchData, timelineData)
-
-  emdOfGameData.onReady(() => {
-    state.status = "GAME_LOADED"
-    state.teams = emdOfGameData.teams
-    state.participants = emdOfGameData.participants
-    state.goldFrames = emdOfGameData.goldFrames
-
-    ctx.LPTE.emit({
-      meta: {
-        namespace,
-        type: 'update',
-        version: 1
-      }, 
-      state
-    })
-  }) */
 
   // Emit event that we're ready to operate
   ctx.LPTE.emit({
