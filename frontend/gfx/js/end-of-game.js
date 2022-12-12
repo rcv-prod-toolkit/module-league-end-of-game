@@ -254,7 +254,7 @@ function renderDmg(participants, teams) {
   }
 
   blueTeamSecondStatDmg.innerHTML = calcK(teams[100].stats.damage)
-  redTeamSecondStatDmg.innerHTML = calcK(teams[100].stats.damage)
+  redTeamSecondStatDmg.innerHTML = calcK(teams[200].stats.damage)
 }
 
 async function start(emdOfGameData) {
