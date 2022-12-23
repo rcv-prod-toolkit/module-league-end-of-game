@@ -79,7 +79,8 @@ export class EndOfGameData {
       const deaths = participant.deaths
       const assists = participant.assists
       const gold = participant.goldEarned
-      const cs = participant.totalMinionsKilled + participant.neutralMinionsKilled
+      const cs =
+        participant.totalMinionsKilled + participant.neutralMinionsKilled
       const damage = participant.totalDamageDealtToChampions
 
       this.participants[participantId] = {
