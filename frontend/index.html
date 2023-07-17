@@ -4,8 +4,63 @@
 
 <h1>End of Game</h1>
 <input style="width: 100%" readonly id="items-embed" />
-<button class="btn btn-secondary" onclick="showItems()">Show Items</button>
-<button class="btn btn-secondary" onclick="showDmg()">Show Damage</button>
+<div class="btn-group mr-3">
+  <button type="button" class="btn btn-secondary" onclick="showItems()">
+    Show Items
+  </button>
+  <button
+    type="button"
+    class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu">
+    <button
+      class="dropdown-item"
+      onclick="window.getActionLink(
+        'module-league-end-of-game',
+        'end-of-game',
+        {
+          'state': 'ITEMS'
+        }
+      )"
+    >
+      Copy Action-Link
+    </button>
+  </div>
+</div>
+
+<div class="btn-group mr-3">
+  <button type="button" class="btn btn-secondary" onclick="showDmg()">
+    Show Damage
+  </button>
+  <button
+    type="button"
+    class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu">
+    <button
+      class="dropdown-item"
+      onclick="window.getActionLink(
+        'module-league-end-of-game',
+        'end-of-game',
+        {
+          'state': 'DAMAGE'
+        }
+      )"
+    >
+      Copy Action-Link
+    </button>
+  </div>
+</div>
 
 <h1>All in One</h1>
 <input style="width: 100%" readonly id="all-in-one-embed" />
